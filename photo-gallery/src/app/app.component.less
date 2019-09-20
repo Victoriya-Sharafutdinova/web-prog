@@ -27,11 +27,12 @@ h6 {
 
   a{
     font-size: 20px;
-    color:white; 
+    color:cornsilk; 
     text-decoration: none;
   }
 
   .toolbar {
+    font-family: 'Times New Roman', Times, serif;
     top: 0;
     height: 60px;
     width: 100%;
@@ -50,19 +51,26 @@ h6 {
   }
 
   .content {
-    background-color: #f1da417a;
+    background-color: #f1da414d;
     display: flex;
-    margin: 50px auto;
-    padding: 0 16px;
-    max-width: 960px;
+    margin: 20px auto;
+    padding: 0px;
+    max-width: 1000px;
     flex-direction: column;
     align-items: center;
   }
 
   .image {
 	position: relative;
-	width: 100%;
+  width: 100%;
+  overflow:hidden;
 }
 
+  .scale {
+    transition: 1s; 
+   }
+   .scale:hover {
+    transform: scale(1.5); 
+   }
 
   
