@@ -12,6 +12,20 @@
   <div class="content" role="main">
     <h1 style="padding: 10px; font-family: 'Times New Roman', Times, serif;">Категории</h1>
     <table>
+        <tr *ngFor="let photosByCategory of photosView">
+            <td>
+            <h2>{{photosByCategory.name}}</h2>
+                <table>
+                    <tr *ngFor="let photosLine of photosByCategory.array">
+                        <td *ngFor="let photo of photosLine">
+                            <img src={{photo.URL}} width="240px" >
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    </table>
+    <!-- <table>
         <h2>Макро</h2>
             <tr>
                 <td>
@@ -196,7 +210,7 @@
                     <img src="\assets\флора5.jpg" width="240px">
                 </td>
             </tr>
-        </table>
+        </table> -->
         
   </div>
   

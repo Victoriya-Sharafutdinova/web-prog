@@ -3,27 +3,34 @@ import { NgModule } from '@angular/core';
 import {AppRoutingModule} from './app-routing.module';
 
 import { AppComponent } from './app.component';
-import { GalleryComponent } from './gallery/gallery.component';
 import { StartPageComponent } from './start-page/start-page.component';
 import { HeaderComponent } from './header/header.component';
 import { NotFoundComponent } from './not-found/not-found.component';
 import { AuthorComponent } from './author/author.component';
 import { AlbumComponent } from './album/album.component';
-
+import {HttpClientModule} from '@angular/common/http'
+import { AdminComponent } from './admin/admin.component';
+import { AuthComponent } from './auth/auth.component';
+import { RegComponent } from './reg/reg.component';
+import { FormsModule } from '@angular/forms'
 
 @NgModule({
   declarations: [
     AppComponent,
-    GalleryComponent,
     StartPageComponent,
     HeaderComponent,
     NotFoundComponent,
     AuthorComponent,
-    AlbumComponent
+    AlbumComponent,
+    AdminComponent,
+    AuthComponent,
+    RegComponent
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    HttpClientModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
