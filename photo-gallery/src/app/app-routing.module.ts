@@ -7,11 +7,11 @@ import {AlbumComponent} from './album/album.component';
 import {AdminComponent} from './admin/admin.component';
 import { AuthComponent } from './auth/auth.component';
 import { RegComponent } from './reg/reg.component';
-
+import { ActivateGuard } from './activate-guard';
 
 
 const routes: Routes = [
-    {path:'admin', component:AdminComponent},
+    {path: 'admin', component: AdminComponent, canActivate: [ActivateGuard]},
     {path:'auth', component:AuthComponent},
     {path:'home', component:StartPageComponent},
     {path:'gallery', loadChildren: './gallery/gallery.module#GalleryModule'},

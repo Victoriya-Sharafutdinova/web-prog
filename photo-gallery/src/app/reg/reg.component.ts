@@ -29,7 +29,6 @@ export class RegComponent implements OnInit {
       password: this.password
     }, this.options).subscribe((result: any) => {
       if (!result) return;
-      //this._authCookie.setAuth(result.token);
       this.router.navigate(["/auth"]);
     });
   }

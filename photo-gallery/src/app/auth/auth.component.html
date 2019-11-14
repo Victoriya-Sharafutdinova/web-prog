@@ -4,8 +4,9 @@
         <input [(ngModel)]="login" type="text" placeholder="login">
         <input [(ngModel)]="password" type="password" placeholder="password">
     </div>
-    <button class="button submit" (click)="buttonLoginClick()" >Войти</button>    <button class="button submit" routerLink="/reg">Зарегистрироваться</button>
-
+    <button class="button submit" (click)="buttonLoginClick()" >Войти</button> 
+    <button class="button submit" routerLink="/reg">Зарегистрироваться</button>
+    <button class="button submit" (click)="buttonVkClick()" >Войти через VK</button>
   </div>
 
 

@@ -11,6 +11,7 @@ import { Router } from '@angular/router';
 export class AuthComponent implements OnInit {
   login: string = "";
   password: string = "";
+  isOAuth=false;
 
   constructor(private router: Router, private httpClient: HttpClient, private _authCookie: AuthCookie) { }
 
@@ -27,12 +28,19 @@ export class AuthComponent implements OnInit {
   buttonLoginClick() {
     this.httpClient.post(`http://localhost:3001/login`, {
       login: this.login,
-      password: this.password
+      password: this.password,
+      isOAuth: this.isOAuth
     }, this.options).subscribe((result: any) => {
       if (!result) return;
       this._authCookie.setAuth(result.token);
+      this._authCookie.setAdmin(result.isAdmin);
       this.router.navigate(["/"]);
     });
   }
 
+
+  buttonVkClick() {
+   this.isOAuth = true;
+   this.buttonLoginClick();
+  }
 }
