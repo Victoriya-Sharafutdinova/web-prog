@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http'
 import { Photo } from '../gallery/Photo';
+import { AuthCookie } from '../auth-cookies-handler';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-admin',
@@ -14,14 +16,24 @@ export class AdminComponent implements OnInit {
   isUpdate: boolean = false;
   photo: Photo = new Photo();
 
-  constructor(private httpClient: HttpClient) { }
-  way = "localhost:3001";
+  constructor(private router: Router, private httpClient: HttpClient, private _authCookie: AuthCookie) { }
+  way = "http://localhost:3001";
   options = {
     headers: new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded')
   };
 
   ngOnInit() {
-    this.httpClient.get(`http://${this.way}/gallery`).subscribe((result: any) => this.photos = result);
+    if (!this._authCookie.getAuth()) {
+      return this.router.navigate(["/"]);
+    }
+    this.httpClient.post(`${this.way}/gallery`, {token: this._authCookie.getAuth(), pageName: "admin"}, this.options).subscribe((result: any) => {
+      if (result) {
+        this.photos = result;
+      }
+      else {
+        this.router.navigate(["/"]);
+      }
+    });
   }
 
   buttonCreateUpdateClick() {
@@ -34,7 +46,7 @@ export class AdminComponent implements OnInit {
   }
 
   Create(){
-    this.httpClient.post(`http://${this.way}/gallery/create`, this.photo, this.options).subscribe((result: any) => {
+    this.httpClient.post(`http://${this.way}/gallery/create`,{token: this._authCookie.getAuth(), data: this.photos},  this.options).subscribe((result: any) => {
       if (!result) return;
       this.photos.push({id: result.id, URL: result.URL, categoryName: result.categoryName, author: result.author});
     });
@@ -46,7 +58,7 @@ export class AdminComponent implements OnInit {
   }
 
   Update() {
-    this.httpClient.post(`http://${this.way}/gallery/update`, this.photo, this.options).subscribe((result: any) => {
+    this.httpClient.post(`http://${this.way}/gallery/update`, {token: this._authCookie.getAuth(), data: this.photos}, this.options).subscribe((result: any) => {
       if (!result) return;
       let photosIndex = this.photos.findIndex(x => x.id == result.id);
       if (photosIndex == -1) return;
@@ -57,9 +69,9 @@ export class AdminComponent implements OnInit {
   }
   
   buttonDeleteClick(id: number) {
-    this.httpClient.post(`http://${this.way}/gallery/delete`, {
+    this.httpClient.post(`http://${this.way}/gallery/delete`, {token: this._authCookie.getAuth(), data: {
       id: id
-    }, this.options).subscribe((result: any) => {
+    }}, this.options).subscribe((result: any) => {
       if (result) {
         let photosIndex = this.photos.findIndex(x => x.id == id);
         if (photosIndex == -1) return;

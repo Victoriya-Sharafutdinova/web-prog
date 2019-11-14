@@ -13,6 +13,7 @@ import { AdminComponent } from './admin/admin.component';
 import { AuthComponent } from './auth/auth.component';
 import { RegComponent } from './reg/reg.component';
 import { FormsModule } from '@angular/forms'
+import { AuthCookie } from './auth-cookies-handler';
 
 @NgModule({
   declarations: [
@@ -30,7 +31,8 @@ import { FormsModule } from '@angular/forms'
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    FormsModule
+    FormsModule,
+    AuthCookie
   ],
   providers: [],
   bootstrap: [AppComponent]
