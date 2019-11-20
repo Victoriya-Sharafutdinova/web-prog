@@ -3,4 +3,5 @@ export class Photo {
     URL: string;
     categoryName: string;
     author: string;
+    description: string;
 }

@@ -18,7 +18,12 @@
                 <table>
                     <tr *ngFor="let photosLine of photosByCategory.array">
                         <td *ngFor="let photo of photosLine">
-                            <img src={{photo.URL}} width="240px" >
+                            <div class="holder">
+                                <img src={{photo.URL}} width="240px" >
+                                <div class="block" >
+                                    <div [innerHTML]="photo.description"></div>
+                                </div>
+                            </div>
                         </td>
                     </tr>
                 </table>

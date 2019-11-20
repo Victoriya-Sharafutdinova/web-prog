@@ -12,10 +12,10 @@ import {HttpClientModule} from '@angular/common/http'
 import { AdminComponent } from './admin/admin.component';
 import { AuthComponent } from './auth/auth.component';
 import { RegComponent } from './reg/reg.component';
-import { FormsModule } from '@angular/forms'
+import { FormsModule, ReactiveFormsModule } from '@angular/forms'
 import { AuthCookie } from './auth-cookies-handler';
 import { ActivateGuard } from './activate-guard';
-
+import { CKEditorModule } from 'ng2-ckeditor';
 @NgModule({
   declarations: [
     AppComponent,
@@ -33,8 +33,10 @@ import { ActivateGuard } from './activate-guard';
     AppRoutingModule,
     HttpClientModule,
     FormsModule,
+    ReactiveFormsModule,
     AuthCookie,
-    ActivateGuard
+    ActivateGuard,
+    CKEditorModule
   ],
   providers: [],
   bootstrap: [AppComponent]

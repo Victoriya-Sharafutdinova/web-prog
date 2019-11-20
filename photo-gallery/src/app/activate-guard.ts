@@ -5,9 +5,8 @@ import {AuthCookie} from './auth-cookies-handler';
 
 @NgModule()
 export class ActivateGuard implements CanActivate {
-  constructor(private router: Router, private _authCookie: AuthCookie) { }
+  constructor(private _authCookie: AuthCookie) { }
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> | boolean {
-    this.router.navigate(['/']);
     return this._authCookie.getAdmin();
   }
 }

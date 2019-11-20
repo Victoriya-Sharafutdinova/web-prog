@@ -5,10 +5,7 @@ import { Observable, BehaviorSubject } from 'rxjs';
 @Injectable()
 @NgModule()
 export class AuthCookie {
-    constructor() {
-        if (!Cookie) {return ; }
-        Cookie.set('user_admin', JSON.stringify(false));
-     }
+    constructor() {}
 
     private authState = new BehaviorSubject(Cookie.get('id_token') != null);
 
@@ -37,11 +34,11 @@ export class AuthCookie {
     getAdmin(): boolean {
         if (!Cookie) {return ; }
         return JSON.parse(Cookie.get('user_admin'));
-      }
+    }
   
-      setAdmin(value: boolean): void {
-          if (!value) { return; }
-          if (!Cookie) {return ; }
-          Cookie.set('user_admin', JSON.stringify(value));
-      }
+    setAdmin(value: boolean): void {
+        if (!value) { return; }
+        if (!Cookie) {return ; }
+        Cookie.set('user_admin', JSON.stringify(value));
+    }
 } 
