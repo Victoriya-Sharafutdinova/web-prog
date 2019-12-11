@@ -16,6 +16,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms'
 import { AuthCookie } from './auth-cookies-handler';
 import { ActivateGuard } from './activate-guard';
 import { CKEditorModule } from 'ng2-ckeditor';
+import { FilesComponent } from './files/files.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -26,7 +27,8 @@ import { CKEditorModule } from 'ng2-ckeditor';
     AlbumComponent,
     AdminComponent,
     AuthComponent,
-    RegComponent
+    RegComponent,
+    FilesComponent
   ],
   imports: [
     BrowserModule,

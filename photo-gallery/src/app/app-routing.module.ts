@@ -8,6 +8,7 @@ import {AdminComponent} from './admin/admin.component';
 import { AuthComponent } from './auth/auth.component';
 import { RegComponent } from './reg/reg.component';
 import { ActivateGuard } from './activate-guard';
+import { FilesComponent} from './files/files.component';
 
 
 const routes: Routes = [
@@ -18,8 +19,8 @@ const routes: Routes = [
     {path:'author', component:AuthorComponent},
     {path:'album', component:AlbumComponent},
     {path:'reg', component:RegComponent},
-    {path:'', redirectTo:'/home',  pathMatch:'full'},
-    {path:'**', component:NotFoundComponent}
+    {path:'files', component:FilesComponent},
+    {path:'**', component:StartPageComponent}
 ]; 
 
 @NgModule({ 

@@ -20,7 +20,7 @@ export class GalleryComponent implements OnInit {
   };
 
   ngOnInit() {
-    this.httpClient.post('http://localhost:3001/gallery', {token: this._authCookie.getAuth(), pageName: "gallery"}, this.options).subscribe((result: any) => {
+    this.httpClient.post('http://localhost:3001/gallery', `data=${JSON.stringify({token: this._authCookie.getAuth(), pageName: "gallery"})}`, this.options).subscribe((result: any) => {
       if (result) {
         this.photos = result;
         let categories = [];

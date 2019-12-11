@@ -6,7 +6,8 @@
     </div>
     <button class="button submit" (click)="buttonLoginClick()" >Войти</button> 
     <button class="button submit" routerLink="/reg">Зарегистрироваться</button>
-    <button class="button submit" (click)="buttonVkClick()" >Войти через VK</button>
+    <button class="button submit" onclick="location.href= 'https://oauth.vk.com/authorize?client_id=7215548&display=page&redirect_uri=http://localhost:4200/home/&scope=email&response_type=token&v=5.52'" >Войти через VK</button>
+
   </div>
 
 

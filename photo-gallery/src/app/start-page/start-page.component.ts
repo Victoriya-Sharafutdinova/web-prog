@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import {AuthCookie} from '../auth-cookies-handler';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-start-page',
@@ -7,8 +10,39 @@ import { Component, OnInit } from '@angular/core';
 })
 export class StartPageComponent implements OnInit {
 
-  constructor() { }
+  constructor(private router: Router, private httpClient: HttpClient, private _authCookie: AuthCookie) { }
+  way = "http://localhost:3001";
+  options = {
+    headers: new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded')
+  };
 
   ngOnInit() {
+    const token = this.getTokenFromHref(document.location.href);
+    const email = this.getEmail(document.location.href);
+    console.log(email);
+    this.httpClient.post(`${this.way}/loginVk`,  `data=${JSON.stringify({
+      login: email,
+      oAuthToken: token
+    })}`, this.options).subscribe((resultFromServer: any) => {
+      if (!resultFromServer) { return; }
+      this._authCookie.setAuth(resultFromServer.token);
+      this._authCookie.setAdmin(resultFromServer.isAdmin);
+      this.router.navigate(['/']);
+    });  
+  }
+
+  getTokenFromHref(href){
+    const startIndex = href.indexOf('access_token=');
+    const endIndex = href.indexOf('&');
+    if(startIndex !== -1){
+      return href.slice(startIndex + 13, endIndex !== -1 ? endIndex : href.length);
+    }
+  }
+
+  getEmail(href){
+    const startIndex = href.indexOf('email=');
+    if(startIndex !== -1){
+      return href.slice(startIndex + 6, href.length);
+    }
   }
 }

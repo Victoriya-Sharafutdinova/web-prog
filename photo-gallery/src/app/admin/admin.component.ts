@@ -25,9 +25,8 @@ export class AdminComponent implements OnInit {
     if (!this._authCookie.getAuth()) {
       return this.router.navigate(["/"]);
     }
-    this.httpClient.post(`${this.way}/gallery`, {token: this._authCookie.getAuth(), pageName: "admin"}, this.options).subscribe((result: any) => {
+    this.httpClient.post(`${this.way}/gallery`, `data=${JSON.stringify({token: this._authCookie.getAuth(), pageName: "admin"})}`, this.options).subscribe((result: any) => {
       if (result) {
-        console.log(result);
         this.photos = result;
       }
       else {
@@ -46,7 +45,7 @@ export class AdminComponent implements OnInit {
   }
 
   Create(){
-    this.httpClient.post(`${this.way}/gallery/create`,{token: this._authCookie.getAuth(), data: this.photo},  this.options).subscribe((result: any) => {
+    this.httpClient.post(`${this.way}/gallery/create`,`data=${JSON.stringify({token: this._authCookie.getAuth(), data: this.photo})}`,  this.options).subscribe((result: any) => {
       if (!result) return;
       this.photos.push({id: result.id, URL: result.URL, categoryName: result.categoryName, author: result.author, description: result.description});
     });
@@ -59,7 +58,7 @@ export class AdminComponent implements OnInit {
 
   Update() {
     console.log(this.photo);
-    this.httpClient.post(`${this.way}/gallery/update`, {token: this._authCookie.getAuth(), data: this.photo}, this.options).subscribe((result: any) => {
+    this.httpClient.post(`${this.way}/gallery/update`, `data=${JSON.stringify({token: this._authCookie.getAuth(), data: this.photo})}`, this.options).subscribe((result: any) => {
       console.log("RESULT");
       if (!result) return;
       let photosIndex = this.photos.findIndex(x => x.id == result.id);
@@ -71,9 +70,9 @@ export class AdminComponent implements OnInit {
   }
   
   buttonDeleteClick(id: number) {
-    this.httpClient.post(`${this.way}/gallery/delete`, {token: this._authCookie.getAuth(), data: {
+    this.httpClient.post(`${this.way}/gallery/delete`, `data=${JSON.stringify({token: this._authCookie.getAuth(), data: {
       id: id
-    }}, this.options).subscribe((result: any) => {
+    }})}`, this.options).subscribe((result: any) => {
       if (result) {
         let photosIndex = this.photos.findIndex(x => x.id == id);
         if (photosIndex == -1) return;
