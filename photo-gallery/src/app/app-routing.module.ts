@@ -9,13 +9,14 @@ import { AuthComponent } from './auth/auth.component';
 import { RegComponent } from './reg/reg.component';
 import { ActivateGuard } from './activate-guard';
 import { FilesComponent} from './files/files.component';
+import { GalleryComponent } from './gallery/gallery.component';
 
 
 const routes: Routes = [
     {path: 'admin', component: AdminComponent, canActivate: [ActivateGuard]},
     {path:'auth', component:AuthComponent},
     {path:'home', component:StartPageComponent},
-    {path:'gallery', loadChildren: './gallery/gallery.module#GalleryModule'},
+    {path:'gallery', component:GalleryComponent},
     {path:'author', component:AuthorComponent},
     {path:'album', component:AlbumComponent},
     {path:'reg', component:RegComponent},

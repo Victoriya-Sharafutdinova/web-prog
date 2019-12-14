@@ -24,7 +24,7 @@ export class AdminComponent implements OnInit {
   ngOnInit() {
     if (!this._authCookie.getAuth()) {
       return this.router.navigate(["/"]);
-    }
+    }    
     this.httpClient.post(`${this.way}/gallery`, `data=${JSON.stringify({token: this._authCookie.getAuth(), pageName: "admin"})}`, this.options).subscribe((result: any) => {
       if (result) {
         this.photos = result;

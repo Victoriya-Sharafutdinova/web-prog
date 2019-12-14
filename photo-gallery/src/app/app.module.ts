@@ -17,6 +17,7 @@ import { AuthCookie } from './auth-cookies-handler';
 import { ActivateGuard } from './activate-guard';
 import { CKEditorModule } from 'ng2-ckeditor';
 import { FilesComponent } from './files/files.component';
+import { GalleryComponent } from './gallery/gallery.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -28,7 +29,8 @@ import { FilesComponent } from './files/files.component';
     AdminComponent,
     AuthComponent,
     RegComponent,
-    FilesComponent
+    FilesComponent,
+    GalleryComponent
   ],
   imports: [
     BrowserModule,

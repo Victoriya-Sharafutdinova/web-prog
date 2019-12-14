@@ -8,8 +8,8 @@
 <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
 
 <!-- Toolbar -->
-
   <div class="content" role="main">
+    <input [(ngModel)]="findText" type="text">
     <h1 style="padding: 10px; font-family: 'Times New Roman', Times, serif;">Категории</h1>
     <table>
         <tr *ngFor="let photosByCategory of photosView">
