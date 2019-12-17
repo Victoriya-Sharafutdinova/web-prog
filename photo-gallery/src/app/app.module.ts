@@ -18,6 +18,7 @@ import { ActivateGuard } from './activate-guard';
 import { CKEditorModule } from 'ng2-ckeditor';
 import { FilesComponent } from './files/files.component';
 import { GalleryComponent } from './gallery/gallery.component';
+import { WebSocketService } from './web-soket';
 @NgModule({
   declarations: [
     AppComponent,
@@ -42,7 +43,7 @@ import { GalleryComponent } from './gallery/gallery.component';
     ActivateGuard,
     CKEditorModule
   ],
-  providers: [],
+  providers: [WebSocketService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

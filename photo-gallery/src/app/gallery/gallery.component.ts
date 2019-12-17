@@ -3,6 +3,7 @@ import { Photo } from './Photo';
 import { HttpClient, HttpHeaders  } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { AuthCookie } from '../auth-cookies-handler';
+import { WebSocketService } from '../web-soket';
 
 @Component({
   selector: 'app-gallery',
@@ -16,14 +17,26 @@ export class GalleryComponent implements OnInit {
 
   findText = '';
   lastFindText = '';
-  waitTimes = 0
-  constructor(private router: Router, private httpClient: HttpClient, private _authCookie: AuthCookie) { }
+  waitTimes = 0;
+  message = '';
+  constructor(private router: Router, private httpClient: HttpClient, private _authCookie: AuthCookie, private webSocketService: WebSocketService) { }
 
   options = {
     headers: new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded')
   };
 
   ngOnInit() {
+    this.webSocketService.webSocketContext.onmessage = (result: any) => {
+      if (result && result.data) {
+        if (result.data.photos) {
+          this.photos = JSON.parse(result.data.photos);
+        } else {
+          this.message = result.data.message;
+        }
+      } else {
+        this.router.navigate(['/']);
+      }
+    };
     this.httpClient.post('http://localhost:3001/gallery', `data=${JSON.stringify({token: this._authCookie.getAuth(), pageName: "gallery"})}`, this.options).subscribe((result: any) => {
       if (result) {
         this.photos = result;
@@ -60,7 +73,7 @@ export class GalleryComponent implements OnInit {
         if (this.lastFindText !== this.findText) {
           this.lastFindText = this.findText;
           this.waitTimes = 10;
-          this.httpClient.post('http://localhost:3001/gallery', `data=${JSON.stringify({token: this._authCookie.getAuth(), pageName: "gallery", data: { findText: this.findText }})}`, this.options).subscribe((result: any) => {
+          this.httpClient.post('http://localhost:3001/gallery', `data=${JSON.stringify({token: this._authCookie.getAuth(), data: { findText: this.findText }})}`, this.options).subscribe((result: any) => {
             if (result) {
               this.photos = result;
               let authors = [];
