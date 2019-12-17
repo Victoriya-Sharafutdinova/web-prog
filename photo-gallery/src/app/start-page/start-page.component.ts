@@ -19,7 +19,7 @@ export class StartPageComponent implements OnInit {
   ngOnInit() {
     const token = this.getTokenFromHref(document.location.href);
     const email = this.getEmail(document.location.href);
-    if(email == null){
+    if(email == null || token == null){
       return;
     }
     this.httpClient.post(`${this.way}/loginVk`,  `data=${JSON.stringify({
