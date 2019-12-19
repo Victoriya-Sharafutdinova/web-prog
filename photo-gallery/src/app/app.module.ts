@@ -12,7 +12,7 @@ import {HttpClientModule} from '@angular/common/http'
 import { AdminComponent } from './admin/admin.component';
 import { AuthComponent } from './auth/auth.component';
 import { RegComponent } from './reg/reg.component';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms'
+import { FormsModule } from '@angular/forms'
 import { AuthCookie } from './auth-cookies-handler';
 import { ActivateGuard } from './activate-guard';
 import { CKEditorModule } from 'ng2-ckeditor';
@@ -38,7 +38,6 @@ import { WebSocketService } from './web-soket';
     AppRoutingModule,
     HttpClientModule,
     FormsModule,
-    ReactiveFormsModule,
     AuthCookie,
     ActivateGuard,
     CKEditorModule
