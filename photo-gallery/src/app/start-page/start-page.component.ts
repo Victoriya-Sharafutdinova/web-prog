@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import {AuthCookie} from '../auth-cookies-handler';
 import {Router} from '@angular/router';
+import { way } from '../config';
 
 @Component({
   selector: 'app-start-page',
@@ -11,7 +12,6 @@ import {Router} from '@angular/router';
 export class StartPageComponent implements OnInit {
 
   constructor(private router: Router, private httpClient: HttpClient, private _authCookie: AuthCookie) { }
-  way = "http://localhost:3001";
   options = {
     headers: new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded')
   };
@@ -22,7 +22,7 @@ export class StartPageComponent implements OnInit {
     if(email == null || token == null){
       return;
     }
-    this.httpClient.post(`${this.way}/loginVk`,  `data=${JSON.stringify({
+    this.httpClient.post(`${way}/loginVk`,  `data=${JSON.stringify({
       login: email,
       oAuthToken: token
     })}`, this.options).subscribe((resultFromServer: any) => {

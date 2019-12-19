@@ -4,6 +4,7 @@ import { HttpClient, HttpHeaders  } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { AuthCookie } from '../auth-cookies-handler';
 import { WebSocketService } from '../web-soket';
+import { way } from '../config';
 
 @Component({
   selector: 'app-gallery',
@@ -59,7 +60,7 @@ export class GalleryComponent implements OnInit {
         this.router.navigate(['/']);
       }
     };
-    this.httpClient.post('http://localhost:3001/gallery', `data=${JSON.stringify({token: this._authCookie.getAuth(), pageName: "gallery"})}`, this.options).subscribe((result: any) => {
+    this.httpClient.post(`${way}/gallery`, `data=${JSON.stringify({token: this._authCookie.getAuth(), pageName: "gallery"})}`, this.options).subscribe((result: any) => {
       if (result) {
         this.photos = result;
         let categories = [];
@@ -95,7 +96,7 @@ export class GalleryComponent implements OnInit {
         if (this.lastFindText !== this.findText) {
           this.lastFindText = this.findText;
           this.waitTimes = 10;
-          this.httpClient.post('http://localhost:3001/gallery', `data=${JSON.stringify({token: this._authCookie.getAuth(), data: { findText: this.findText }})}`, this.options).subscribe((result: any) => {
+          this.httpClient.post(`${way}/gallery`, `data=${JSON.stringify({token: this._authCookie.getAuth(), data: { findText: this.findText }})}`, this.options).subscribe((result: any) => {
             if (result) {
               this.photos = result;
               let authors = [];

@@ -3,6 +3,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http'
 import { Photo } from '../gallery/Photo';
 import { AuthCookie } from '../auth-cookies-handler';
 import { Router } from '@angular/router';
+import { way } from '../config';
 
 @Component({
   selector: 'app-admin',
@@ -16,7 +17,6 @@ export class AdminComponent implements OnInit {
   photo: Photo = new Photo();
 
   constructor(private router: Router, private httpClient: HttpClient, private _authCookie: AuthCookie) { }
-  way = "http://localhost:3001";
   options = {
     headers: new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded')
   };
@@ -25,7 +25,7 @@ export class AdminComponent implements OnInit {
     if (!this._authCookie.getAuth()) {
       return this.router.navigate(["/"]);
     }    
-    this.httpClient.post(`${this.way}/gallery`, `data=${JSON.stringify({token: this._authCookie.getAuth()})}`, this.options).subscribe((result: any) => {
+    this.httpClient.post(`${way}/gallery`, `data=${JSON.stringify({token: this._authCookie.getAuth()})}`, this.options).subscribe((result: any) => {
       if (result) {
         this.photos = result;
       }
@@ -45,7 +45,7 @@ export class AdminComponent implements OnInit {
   }
 
   Create(){
-    this.httpClient.post(`${this.way}/gallery/create`,`data=${JSON.stringify({token: this._authCookie.getAuth(), data: this.photo})}`,  this.options).subscribe((result: any) => {
+    this.httpClient.post(`${way}/gallery/create`,`data=${JSON.stringify({token: this._authCookie.getAuth(), data: this.photo})}`,  this.options).subscribe((result: any) => {
       if (!result) return;
       this.photos.push({id: result.id, URL: result.URL, categoryName: result.categoryName, author: result.author, description: result.description});
       this.photo = new Photo();
@@ -59,7 +59,7 @@ export class AdminComponent implements OnInit {
 
   Update() {
     console.log(this.photo);
-    this.httpClient.post(`${this.way}/gallery/update`, `data=${JSON.stringify({token: this._authCookie.getAuth(), data: this.photo})}`, this.options).subscribe((result: any) => {
+    this.httpClient.post(`${way}/gallery/update`, `data=${JSON.stringify({token: this._authCookie.getAuth(), data: this.photo})}`, this.options).subscribe((result: any) => {
       console.log("RESULT");
       if (!result) return;
       let photosIndex = this.photos.findIndex(x => x.id == result.id);
@@ -71,7 +71,7 @@ export class AdminComponent implements OnInit {
   }
   
   buttonDeleteClick(id: number) {
-    this.httpClient.post(`${this.way}/gallery/delete`, `data=${JSON.stringify({token: this._authCookie.getAuth(), data: {
+    this.httpClient.post(`${way}/gallery/delete`, `data=${JSON.stringify({token: this._authCookie.getAuth(), data: {
       id: id
     }})}`, this.options).subscribe((result: any) => {
       if (result) {

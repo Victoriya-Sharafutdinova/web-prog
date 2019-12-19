@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { AuthCookie } from '../auth-cookies-handler';
 import { Router } from '@angular/router';
+import { way } from '../config';
 
 @Component({
   selector: 'app-reg',
@@ -24,7 +25,7 @@ export class RegComponent implements OnInit {
   }
 
   buttonRegisterClick() {
-    this.httpClient.post(`http://localhost:3001/reg`, `data=${JSON.stringify({
+    this.httpClient.post(`${way}/reg`, `data=${JSON.stringify({
       login: this.login,
       password: this.password
     })}`, this.options).subscribe((result: any) => {

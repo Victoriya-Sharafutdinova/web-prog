@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { AuthCookie } from '../auth-cookies-handler';
 import { Router } from '@angular/router';
+import { way } from '../config';
 
 @Component({
   selector: 'app-auth',
@@ -25,7 +26,7 @@ export class AuthComponent implements OnInit {
   }
 
   buttonLoginClick() {
-    this.httpClient.post(`http://localhost:3001/login`, `data=${JSON.stringify({
+    this.httpClient.post(`${way}/login`, `data=${JSON.stringify({
       login: this.login,
       password: this.password
     })}`, this.options).subscribe((result: any) => {

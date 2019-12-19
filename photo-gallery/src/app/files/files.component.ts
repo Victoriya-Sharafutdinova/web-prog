@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {FilesService} from './files.service'
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { way } from '../config';
 
 @Component({
   selector: 'app-files',
@@ -33,7 +34,7 @@ export class FilesComponent implements OnInit {
     this.isUpload = true;
     
     console.log(formData.get('file'));
-    this.httpClient.post(`http://localhost:3001/upload`,  formData).subscribe(res =>{
+    this.httpClient.post(`${way}/upload`,  formData).subscribe(res =>{
         this.isUpload = false;
 
         if(!res) return alert('Ошибка при отправке файла');

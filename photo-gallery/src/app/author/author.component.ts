@@ -3,6 +3,7 @@ import { Photo } from './Photo';
 import { HttpClient, HttpHeaders  } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { AuthCookie } from '../auth-cookies-handler';
+import { way } from '../config';
 
 @Component({
   selector: 'app-gallery',
@@ -28,7 +29,7 @@ export class AuthorComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.httpClient.post('http://localhost:3001/author', `data=${JSON.stringify({token: this._authCookie.getAuth(), pageName: "author"})}`, this.options).subscribe((result: any) => {
+    this.httpClient.post(`${way}/author`, `data=${JSON.stringify({token: this._authCookie.getAuth(), pageName: "author"})}`, this.options).subscribe((result: any) => {
       if (result) {
         this.photos = result;
         let authors = [];
@@ -65,7 +66,7 @@ export class AuthorComponent implements OnInit {
         if (this.lastFindText !== this.findText) {
           this.lastFindText = this.findText;
           this.waitTimes = 10;
-          this.httpClient.post('http://localhost:3001/gallery', `data=${JSON.stringify({token: this._authCookie.getAuth(), pageName: "gallery", data: { findText: this.findText }})}`, this.options).subscribe((result: any) => {
+          this.httpClient.post(`${way}/gallery`, `data=${JSON.stringify({token: this._authCookie.getAuth(), pageName: "gallery", data: { findText: this.findText }})}`, this.options).subscribe((result: any) => {
             if (result) {
               this.photos = result;
               let categories = [];
