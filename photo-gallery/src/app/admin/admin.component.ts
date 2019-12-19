@@ -48,6 +48,7 @@ export class AdminComponent implements OnInit {
     this.httpClient.post(`${this.way}/gallery/create`,`data=${JSON.stringify({token: this._authCookie.getAuth(), data: this.photo})}`,  this.options).subscribe((result: any) => {
       if (!result) return;
       this.photos.push({id: result.id, URL: result.URL, categoryName: result.categoryName, author: result.author, description: result.description});
+      this.photo = new Photo();
     });
   }
 
