@@ -28,31 +28,35 @@ export class GalleryComponent implements OnInit {
 
   ngOnInit() {
     this.webSocketService.webSocketContext.onmessage = (result: any) => {
+      console.log(result);
       result = JSON.parse(result.data);
       if (result && result.data && result.type) {
         if (result.type === "updatePhotos") {
           this.photos = result.data;
+          console.log(this.photos);
+
           let categories = [];
-          this.photos.forEach(photo => {
-            if (categories.includes(photo.categoryName)) return;
-            categories.push(photo.categoryName);
+        this.photos.forEach(photo => {
+          if (categories.includes(photo.categoryName)) return;
+          categories.push(photo.categoryName);
+        });
+        this.photosView = [];
+        categories.forEach(category => {
+          this.photosView.push({
+            name:category,
+            array:[]
           });
-          categories.forEach(category => {
-            this.photosView.push({
-              name:category,
-              array:[]
-            });
-            this.photosView[this.photosView.length-1].array[0] = [];
-            let photosByCategory = this.photos.filter(x => x.categoryName == category);
-            for (let i = 0, j = 0; i * 3 + j < photosByCategory.length; j++) {
-              if (j > 2) {
-                j = 0;
-                i++;
-                this.photosView[this.photosView.length-1].array[i] = [];
-              }
-              this.photosView[this.photosView.length-1].array[i][j] = photosByCategory[i * 3 + j];
+          this.photosView[this.photosView.length-1].array[0] = [];
+          let photosByCategory = this.photos.filter(x => x.categoryName == category);
+          for (let i = 0, j = 0; i * 3 + j < photosByCategory.length; j++) {
+            if (j > 2) {
+              j = 0;
+              i++;
+              this.photosView[this.photosView.length-1].array[i] = [];
             }
-          });
+            this.photosView[this.photosView.length-1].array[i][j] = photosByCategory[i * 3 + j];
+          }
+        });
         } else if (result.type === 'updateText')  {
           this.message = result.data.object.body;
         }
@@ -61,7 +65,7 @@ export class GalleryComponent implements OnInit {
       }
     };
     this.httpClient.post(`${way}/gallery`, `data=${JSON.stringify({token: this._authCookie.getAuth(), pageName: "gallery"})}`, this.options).subscribe((result: any) => {
-      if (result) {
+      if (result != null) {
         this.photos = result;
         let categories = [];
         this.photos.forEach(photo => {
@@ -97,7 +101,7 @@ export class GalleryComponent implements OnInit {
           this.lastFindText = this.findText;
           this.waitTimes = 10;
           this.httpClient.post(`${way}/gallery`, `data=${JSON.stringify({token: this._authCookie.getAuth(), data: { findText: this.findText }})}`, this.options).subscribe((result: any) => {
-            if (result) {
+            if (result != null) {
               this.photos = result;
               let authors = [];
               this.photos.forEach(photo => {
